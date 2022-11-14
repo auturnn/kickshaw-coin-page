@@ -8,14 +8,14 @@ class ApiConnector {
   }
 
   getBlock = (hash: string): Promise<BlockObject> => {
-    return ApiConnector.jsonFetch(`${this.host}${hash}`);
+    return ApiConnector.fetchTojson(`${this.host}/${hash}`);
   };
 
   getBlocks = (): Promise<BlockObject[]> => {
-    return ApiConnector.jsonFetch(`${this.host}`);
+    return ApiConnector.fetchTojson(`${this.host}`);
   };
 
-  private static async jsonFetch<T>(endpoint: string): Promise<T> {
+  private static async fetchTojson<T>(endpoint: string): Promise<T> {
     const json = fetch(endpoint).then((res) => {
       if (!res.ok) {
         throw new Error(res.statusText);
@@ -26,5 +26,5 @@ class ApiConnector {
     return json;
   }
 }
-
+export const blockApiConnector = new ApiConnector("/blocks");
 export default ApiConnector;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiConnector from "../Api";
+import ApiConnector, { blockApiConnector } from "../Api";
 import { BlockObject, getDate, omissionString } from "../component/BlockObject";
 
 const BlockPage = ({
@@ -16,10 +16,10 @@ const BlockPage = ({
     <tr>
       <td>{height}</td>
       <td>
-        <Link to={`/blocks/${hash}`}>{omissionString(hash)}</Link>
+        <Link to={`/block/${hash}`}>{omissionString(hash)}</Link>
       </td>
       <td>
-        <Link to={`/blocks/${prevHash}`}>{omissionString(prevHash)}</Link>
+        <Link to={`/block/${prevHash}`}>{omissionString(prevHash)}</Link>
       </td>
       <td>{nonce}</td>
       <td>{difficulty}</td>
@@ -29,8 +29,6 @@ const BlockPage = ({
   );
 };
 
-const blockApiConnector = new ApiConnector("/blocks");
-
 const BlocksPage = () => {
   const [loading, setLoading] = useState(true);
   const [blocks, setBlocks] = useState<Array<BlockObject>>();
@@ -38,15 +36,13 @@ const BlocksPage = () => {
   useEffect(() => {
     //5초마다 실행하여 업데이트
     //현재 페이지 첫 로드에도 5초가 걸리니 이 부분 수정바람
-    setInterval(() => {
-      blockApiConnector
-        .getBlocks()
-        .then((res) => {
-          console.log(res);
-          return res;
-        })
-        .then((res) => setBlocks(res));
-    }, 5000);
+    blockApiConnector
+      .getBlocks()
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .then((res) => setBlocks(res));
 
     setLoading(false);
   }, []);

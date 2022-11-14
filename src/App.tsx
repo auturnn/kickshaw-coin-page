@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blocks" element={<BlocksPage />} />
-          <Route path="/blocks/:hash" element={<BlockPage />} />
+          <Route path="/block/:hash" element={<BlockPage />} />
         </Routes>
       </Router>
     </div>

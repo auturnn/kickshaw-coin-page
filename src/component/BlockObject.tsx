@@ -10,14 +10,14 @@ export interface BlockObject {
 }
 
 export interface TxObject {
-  id: string;
+  txId: string;
   timestamp: number;
   txIns: Array<TxInObject>;
   txOuts: Array<TxOutObject>;
 }
 
 export interface TxInObject {
-  txID: string;
+  txId: string;
   index: number;
   signature: string;
 }
