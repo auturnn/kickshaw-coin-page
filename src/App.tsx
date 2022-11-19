@@ -1,21 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlockPage from "./page/BlockPage";
-// import Blocks from "./component/BlockPage";
 import BlocksPage from "./page/BlocksPage";
 import Home from "./page/HomePage";
+import MempoolPage from "./page/MempoolPage";
+import NavbarPage from "./page/NavbarPage";
 
 function App() {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
-      <Router>
-        {/* <NavigateBar /> */}
+    <Router>
+      <NavbarPage />
+      <div className="px-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blocks" element={<BlocksPage />} />
           <Route path="/block/:hash" element={<BlockPage />} />
+          <Route path="/mempool" element={<MempoolPage />} />
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
+    // </div>
   );
 }
 

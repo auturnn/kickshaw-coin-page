@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ApiConnector, { blockApiConnector } from "../Api";
-import { BlockObject, getDate, omissionString } from "../component/BlockObject";
+import { Link, useSearchParams } from "react-router-dom";
+import { URLSearchParams } from "url";
+import { blockApiConnector } from "../Api";
+import { ParsedUrlQuery } from "querystring";
+import {
+  BlockObject,
+  getDate,
+  omissionString,
+  Time,
+} from "../object/BlockObject";
+import Paging from "./Pagination";
 
 const BlockPage = ({
   hash,
@@ -13,7 +21,10 @@ const BlockPage = ({
   nonce,
 }: BlockObject) => {
   return (
-    <tr>
+    <tr
+      key={hash}
+      className="border-b border-b-slate-600 text-lg text-center text-slate-300"
+    >
       <td>{height}</td>
       <td>
         <Link to={`/block/${hash}`}>{omissionString(hash)}</Link>
@@ -24,26 +35,26 @@ const BlockPage = ({
       <td>{nonce}</td>
       <td>{difficulty}</td>
       <td>{omissionString(miner)}</td>
-      <td>{getDate(timestamp)}</td>
+      <td>{getDate(timestamp, Time.DATE)}</td>
     </tr>
   );
 };
 
-const BlocksPage = () => {
+const BlocksPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [blocks, setBlocks] = useState<Array<BlockObject>>();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const offset = (page - 1) * limit;
 
+  const getBlocks = async () => {
+    const json = await blockApiConnector.getBlocks();
+    setBlocks(json);
+  };
   useEffect(() => {
     //5초마다 실행하여 업데이트
     //현재 페이지 첫 로드에도 5초가 걸리니 이 부분 수정바람
-    blockApiConnector
-      .getBlocks()
-      .then((res) => {
-        console.log(res);
-        return res;
-      })
-      .then((res) => setBlocks(res));
-
+    getBlocks();
     setLoading(false);
   }, []);
 
@@ -56,29 +67,28 @@ const BlocksPage = () => {
       {loading ? (
         <h1>Loading BlocksList...</h1>
       ) : (
-        <div key="blocksList" className="flex dark:text-white">
-          <table className="border-separate border border-slate-500">
+        <div key="blocksList" className="flex w-[90%] m-auto dark:text-white">
+          <table className="border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
             <thead>
-              <tr>
-                <th className="border border-slate-600 text-slate-900 dark:text-white mt-5 text-base font-medium tracking-tight">
-                  Height
-                </th>
-                <th className="border border-slate-600">Hash</th>
-                <th className="border border-slate-600">PrevHash</th>
-                <th className="border border-slate-600">Nonce</th>
-                <th className="border border-slate-600">Difficulty</th>
-                <th className="border border-slate-600">Miner</th>
-                <th className="border border-slate-600">Timestamp</th>
+              <tr className="text-[#37BCF8] text-lg">
+                <th>Height</th>
+                <th>Hash</th>
+                <th>PrevHash</th>
+                <th>Nonce</th>
+                <th>Difficulty</th>
+                <th>Miner</th>
+                <th>Timestamp</th>
               </tr>
             </thead>
             <tbody>
-              {blocks.map((block) => {
+              {blocks.slice(offset, offset + limit).map((block) => {
                 return BlockPage(block);
               })}
             </tbody>
           </table>
         </div>
       )}
+      <Paging count={blocks.length} page={page} setPage={setPage} />
     </div>
   );
 };

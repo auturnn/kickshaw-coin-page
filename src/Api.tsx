@@ -1,5 +1,7 @@
-import { BlockObject } from "./component/BlockObject";
+import { BlockChainStatusObject, BlockObject } from "./object/BlockObject";
+import { Mempool } from "./object/TransactionObject";
 export const Host = "http://api.kickshaw-coin.com";
+
 class ApiConnector {
   private host: string;
 
@@ -7,12 +9,20 @@ class ApiConnector {
     this.host = Host + host;
   }
 
-  getBlock = (hash: string): Promise<BlockObject> => {
-    return ApiConnector.fetchTojson(`${this.host}/${hash}`);
+  getMempool = async (): Promise<Mempool> => {
+    return await ApiConnector.fetchTojson(`${this.host}mempool`);
   };
 
-  getBlocks = (): Promise<BlockObject[]> => {
-    return ApiConnector.fetchTojson(`${this.host}`);
+  getBlock = async (hash: string): Promise<BlockObject> => {
+    return await ApiConnector.fetchTojson(`${this.host}/${hash}`);
+  };
+
+  getBlocks = async (): Promise<BlockObject[]> => {
+    return await ApiConnector.fetchTojson(`${this.host}`);
+  };
+
+  getChainStatus = async (): Promise<BlockChainStatusObject> => {
+    return await ApiConnector.fetchTojson(`${this.host}`);
   };
 
   private static async fetchTojson<T>(endpoint: string): Promise<T> {
@@ -22,9 +32,11 @@ class ApiConnector {
       }
       return res.json();
     });
-
-    return json;
+    return await json;
   }
 }
+
 export const blockApiConnector = new ApiConnector("/blocks");
+export const apiConnector = new ApiConnector("/");
+
 export default ApiConnector;

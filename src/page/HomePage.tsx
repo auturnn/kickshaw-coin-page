@@ -9,7 +9,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="dark:text-white">
+    <div className="">
       {loading ? (
         <h1>Loading...</h1>
       ) : (

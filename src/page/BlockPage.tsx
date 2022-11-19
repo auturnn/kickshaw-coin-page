@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { blockApiConnector } from "../Api";
-import { BlockObject, TxObject } from "../component/BlockObject";
+import { BlockObject, getDate, Time } from "../object/BlockObject";
+import { TxObject } from "../object/TransactionObject";
 
 const TxPage = ({ txId, timestamp, txIns, txOuts }: TxObject) => {
   return (
@@ -27,6 +28,12 @@ const TxPage = ({ txId, timestamp, txIns, txOuts }: TxObject) => {
             Signature
           </div>
           <div>{txIns[0].signature}</div>
+        </div>
+        <div className="w-full h-5 my-4">
+          <div className="float-left w-1/12 font-bold text-center font-xl">
+            Timestamp
+          </div>
+          <div>{getDate(timestamp, Time.SEC)}</div>
         </div>
       </div>
       <div className="w-full inline-block">
@@ -57,15 +64,15 @@ const BlockPage = () => {
   const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState<BlockObject>();
   const { hash } = useParams();
-  useEffect(() => {
-    if (hash !== undefined) {
-      blockApiConnector.getBlock(hash).then((res) => {
-        console.log(block);
-        setBlock(res);
-        return res;
-      });
-    }
 
+  const getBlock = async () => {
+    if (hash !== undefined) {
+      const res = await blockApiConnector.getBlock(hash);
+      setBlock(res);
+    }
+  };
+  useEffect(() => {
+    getBlock();
     setLoading(false);
   }, []);
 
@@ -91,7 +98,7 @@ const BlockPage = () => {
             </tr>
             <tr>
               <th className="border border-slate-600">Timestamp</th>
-              <td>{block.timestamp}</td>
+              <td>{getDate(block.timestamp, Time.SEC)}</td>
             </tr>
             <tr>
               <th className="border border-slate-600">Height</th>
