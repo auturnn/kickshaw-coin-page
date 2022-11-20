@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { URLSearchParams } from "url";
+import { Link } from "react-router-dom";
 import { blockApiConnector } from "../Api";
-import { ParsedUrlQuery } from "querystring";
 import {
   BlockObject,
   getDate,
@@ -34,7 +32,9 @@ const BlockPage = ({
       </td>
       <td>{nonce}</td>
       <td>{difficulty}</td>
-      <td>{omissionString(miner)}</td>
+      <td>
+        <Link to={`/address/${miner}`}>{omissionString(miner)}</Link>
+      </td>
       <td>{getDate(timestamp, Time.DATE)}</td>
     </tr>
   );
@@ -68,9 +68,12 @@ const BlocksPage = (): JSX.Element => {
         <h1>Loading BlocksList...</h1>
       ) : (
         <div key="blocksList" className="flex w-[90%] m-auto dark:text-white">
-          <table className="border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
+          <table className="mb-3 border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
+            <caption className="text-slate-200 text-xl font-bold text-left mb-4">
+              The Lastest Block List
+            </caption>
             <thead>
-              <tr className="text-[#37BCF8] text-lg">
+              <tr className="text-[#37BCF8] text-lg ">
                 <th>Height</th>
                 <th>Hash</th>
                 <th>PrevHash</th>

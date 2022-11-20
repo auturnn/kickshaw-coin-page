@@ -1,6 +1,6 @@
+import ApiConnector from "../Api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiConnector from "../Api";
 import { BlockChainStatusObject, omissionString } from "../object/BlockObject";
 
 const ChainStatus = () => {
@@ -43,11 +43,6 @@ const NavbarPage = () => {
           <div className="container-fluid border border-slate-900 rounded-md p-2">
             <Link to={`/`} className="text-2xl font-semibold">
               KickshawCoin
-            </Link>
-          </div>
-          <div className="container-fluid font-semibold text-xl">
-            <Link to={`/blocks`} className="">
-              Blocks
             </Link>
           </div>
           <div className="container-fluid font-semibold text-xl">

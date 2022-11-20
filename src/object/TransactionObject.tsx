@@ -1,5 +1,5 @@
 export interface TxObject {
-  txId: string;
+  id: string;
   timestamp: number;
   txIns: Array<TxInObject>;
   txOuts: Array<TxOutObject>;
@@ -16,8 +16,8 @@ export interface TxOutObject {
   amount: number;
 }
 
-interface UTxOut {
-  txID: string;
+export interface UTxOut {
+  txId: string;
   index: number;
   amount: number;
 }
