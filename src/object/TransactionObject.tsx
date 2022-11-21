@@ -6,7 +6,7 @@ export interface TxObject {
 }
 
 export interface TxInObject {
-  txId: string;
+  txID: string;
   index: number;
   signature: string;
 }
@@ -17,7 +17,7 @@ export interface TxOutObject {
 }
 
 export interface UTxOut {
-  txId: string;
+  txID: string;
   index: number;
   amount: number;
 }
@@ -26,19 +26,11 @@ export type Mempool = {
   [Property in keyof string]: TxObject;
 };
 
-// export type Mempool = Map<string, TxObject>;
+export const slicingAddress = (address: string) => {
+  return address.slice(0, 5);
+};
 
-// export class MempoolPair<Mempool> {
-//   private mempool: Mempool;
-
-//   constructor(mempool: Mempool) {
-//     this.mempool = mempool;
-//   }
-
-//   getPair() {
-//     for (const [key, v] of this.mempool) {
-//         console.log(key, v)
-//     }
-//     return;
-//   }
-// }
+export interface BalanceObject {
+  address: string;
+  balance: number;
+}

@@ -7,6 +7,7 @@ import {
   omissionString,
   Time,
 } from "../object/BlockObject";
+import { slicingAddress } from "../object/TransactionObject";
 import Paging from "./Pagination";
 
 const BlockPage = ({
@@ -33,7 +34,7 @@ const BlockPage = ({
       <td>{nonce}</td>
       <td>{difficulty}</td>
       <td>
-        <Link to={`/address/${miner}`}>{omissionString(miner)}</Link>
+        <Link to={`/address/${miner}`}>{slicingAddress(miner)}</Link>
       </td>
       <td>{getDate(timestamp, Time.DATE)}</td>
     </tr>
@@ -51,6 +52,7 @@ const BlocksPage = (): JSX.Element => {
     const json = await blockApiConnector.getBlocks();
     setBlocks(json);
   };
+
   useEffect(() => {
     //5초마다 실행하여 업데이트
     //현재 페이지 첫 로드에도 5초가 걸리니 이 부분 수정바람
@@ -67,13 +69,13 @@ const BlocksPage = (): JSX.Element => {
       {loading ? (
         <h1>Loading BlocksList...</h1>
       ) : (
-        <div key="blocksList" className="flex w-[90%] m-auto dark:text-white">
-          <table className="mb-3 border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
-            <caption className="text-slate-200 text-xl font-bold text-left mb-4">
+        <div key="blocksList" className="flex w-[85%] m-auto">
+          <table className="w-full mx-auto mb-3 border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
+            <caption className="text-slate-200 text-2xl font-bold text-left mb-4">
               The Lastest Block List
             </caption>
-            <thead>
-              <tr className="text-[#37BCF8] text-lg ">
+            <thead className="w-full">
+              <tr className="text-[#37BCF8] text-lg">
                 <th>Height</th>
                 <th>Hash</th>
                 <th>PrevHash</th>

@@ -35,12 +35,12 @@ const NavbarPage = () => {
   }, []);
 
   return (
-    <nav className="relative w-full flex flex-wrap mb-10 items-center border-b border-b-slate-600 justify-between py-3 opacity-90">
+    <nav className="relative w-full mx-auto flex flex-wrap mb-10 items-center border-b border-b-slate-600 justify-between py-3 opacity-90">
       {loading ? (
         <h1>Loading BlockChain Status...</h1>
       ) : (
         <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6 text-white">
-          <div className="container-fluid border border-slate-900 rounded-md p-2">
+          <div className="container-fluid p-2">
             <Link to={`/`} className="text-2xl font-semibold">
               KickshawCoin
             </Link>
