@@ -6,7 +6,8 @@ import BlocksPage from "./page/BlocksPage";
 import MempoolPage from "./page/MempoolPage";
 import NavbarPage from "./page/NavbarPage";
 import "./css/nav.css";
-import TransactionsPage from "./page/TransactionsPage";
+import { TransactionsPage } from "./page/TransactionsPage";
+
 function App() {
   return (
     <Router>

@@ -4,12 +4,17 @@ import { blockApiConnector } from "../Api";
 import { BlockObject, getDate, Time } from "../object/BlockObject";
 import { slicingAddress } from "../object/TransactionObject";
 import { LoadingPage } from "./LoadingPage";
+import Paging from "./Pagination";
 import { TxPage } from "./TxPage";
 
 const BlockPage = () => {
   const [loading, setLoading] = useState(true);
   const [block, setBlock] = useState<BlockObject>();
   const { hash } = useParams();
+
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const offset = (page - 1) * limit;
 
   const getBlock = async () => {
     if (hash !== undefined) {
@@ -98,9 +103,18 @@ const BlockPage = () => {
             <span className="text-[#37BCF8]">{` ${block.transactions.length} `}</span>
             Transaction List
           </h2>
-          {block.transactions.map((tx, index) => {
-            return TxPage(tx, block.transactions.length - index);
+          {block.transactions.slice(offset, offset + limit).map((tx, index) => {
+            return (
+              <div key={tx.id}>
+                {TxPage(tx, block.transactions.length - (index + offset))}
+              </div>
+            );
           })}
+          <Paging
+            count={block.transactions.length}
+            page={page}
+            setPage={setPage}
+          />
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@ import { LoadingPage } from "./LoadingPage";
 import Paging from "./Pagination";
 import { TxPage } from "./TxPage";
 
-const TransactionsPage = () => {
+export const TransactionsPage = () => {
   const [loading, setLoading] = useState(true);
   const [txList, setTxList] = useState<TxObject[]>();
 
@@ -41,7 +41,11 @@ const TransactionsPage = () => {
             <span>Transactions</span>
           </h2>
           {txMem.slice(offset, offset + limit).map((tx, index) => {
-            return <div key={tx.id}>{TxPage(tx, index + offset + 1)}</div>;
+            return (
+              <div key={tx.id}>
+                {TxPage(tx, txMem.length - (index + offset))}
+              </div>
+            );
           })}
           <Paging count={txMem.length} page={page} setPage={setPage} />
         </div>
@@ -49,5 +53,3 @@ const TransactionsPage = () => {
     </div>
   );
 };
-
-export default TransactionsPage;
