@@ -6,6 +6,7 @@ import BlocksPage from "./page/BlocksPage";
 import MempoolPage from "./page/MempoolPage";
 import NavbarPage from "./page/NavbarPage";
 import "./css/nav.css";
+import TransactionsPage from "./page/TransactionsPage";
 function App() {
   return (
     <Router>
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<BlocksPage />} />
           <Route path="/block/:hash" element={<BlockPage />} />
           <Route path="/mempool" element={<MempoolPage />} />
+          <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/address/:address" element={<AddressInfoPage />} />
         </Routes>
       </div>

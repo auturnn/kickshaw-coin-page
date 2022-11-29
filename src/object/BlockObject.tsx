@@ -4,7 +4,9 @@ export interface BlockChainStatusObject {
   newestHash: string;
   height: number;
   currentDifficulty: number;
+  peers: number;
 }
+
 export interface BlockObject {
   hash: string;
   prevHash: string;
@@ -16,12 +18,17 @@ export interface BlockObject {
   transactions: Array<TxObject>;
 }
 
-export const omissionString = (hash: string | undefined) => {
+export enum HashLength {
+  STATUS = 8,
+  BLOCKS = 12,
+}
+
+export const sliceHash = (hash: string | undefined, len: HashLength) => {
   if (hash === "COINBASE") {
     return hash;
   }
 
-  return `${hash?.slice(0, 5)}...${hash?.slice(44, 64)}`;
+  return `${hash?.slice(0, len)}-${hash?.slice(hash.length - len, 64)}`;
 };
 
 export enum Time {

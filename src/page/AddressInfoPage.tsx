@@ -1,18 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ApiConnector from "../Api";
 import { UTxOut } from "../object/TransactionObject";
 import Paging from "./Pagination";
+import { txApiConnector } from "../Api";
+import { LoadingPage } from "./LoadingPage";
 
-const txApiConnector = new ApiConnector("/balance");
-
-const UTxOutListPage = ({ txID, index, amount }: UTxOut) => {
-  const navigate = useNavigate();
-  const onClick = async () => {
-    await new ApiConnector("/block")
-      .getBlockHashByTxID(txID)
-      .then((res) => navigate(`/block/${res}`));
-  };
+const UTxOutListPage = ({ blockHash, txID, index, amount }: UTxOut) => {
   return (
     <div
       className="w-full inline-block border-b border-b-slate-700 bg-[#1e2638] rounded-md my-3"
@@ -27,7 +20,7 @@ const UTxOutListPage = ({ txID, index, amount }: UTxOut) => {
             {txID === "" ? (
               "MINEND BLOCK"
             ) : (
-              <span onClick={onClick}>{txID}</span>
+              <Link to={`/block/${blockHash}`}>{txID}</Link>
             )}
           </div>
         </div>
@@ -69,9 +62,7 @@ const AddressInfoPage = () => {
   const getAmount = async () => {
     if (address !== undefined) {
       const json = await txApiConnector.getTotalBalance(address);
-      if (json.address === address) {
-        setAmount(json.balance);
-      }
+      setAmount(json);
     }
   };
 
@@ -82,13 +73,13 @@ const AddressInfoPage = () => {
   }, []);
 
   if (utxout === undefined) {
-    return <div>Not Found target address transaction List</div>;
+    return LoadingPage("Address Transactions Loading...");
   }
 
   return (
     <div className="w-[85%] mx-auto text-slate-200 text-lg">
       {loading ? (
-        <h1>Loading...</h1>
+        LoadingPage("Page Loading...")
       ) : (
         <div className="w-full">
           <div className="w-full inline-block mb-5">
@@ -107,20 +98,28 @@ const AddressInfoPage = () => {
               </div>
               <div className="px-4">
                 <span>{`${amount}`} </span>
-                <span className=" text-yellow-300">KSC</span>
+                <span className=" text-amber-300">KSC</span>
               </div>
             </div>
           </div>
           <div>
             <h2 className="text-slate-200 text-2xl font-bold">
               This Address has '
-              <span className="text-[#37BCF8]">{utxout.length}</span>'
-              Transactions on the Blockchain
+              <span className="text-[#37BCF8]">
+                {utxout === null ? 0 : utxout.length}
+              </span>
+              ' Transactions on the Blockchain
             </h2>
-            {utxout
-              .slice(offset, offset + limit)
-              .map((res) => UTxOutListPage(res))}
-            <Paging count={utxout.length} page={page} setPage={setPage} />
+            {utxout === null ? (
+              ``
+            ) : (
+              <div>
+                {utxout
+                  .slice(offset, offset + limit)
+                  .map((res) => UTxOutListPage(res))}
+                <Paging count={utxout.length} page={page} setPage={setPage} />
+              </div>
+            )}
           </div>
         </div>
       )}

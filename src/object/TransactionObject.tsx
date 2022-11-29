@@ -17,6 +17,7 @@ export interface TxOutObject {
 }
 
 export interface UTxOut {
+  blockHash: string;
   txID: string;
   index: number;
   amount: number;
@@ -29,8 +30,3 @@ export type Mempool = {
 export const slicingAddress = (address: string) => {
   return address.slice(0, 5);
 };
-
-export interface BalanceObject {
-  address: string;
-  balance: number;
-}

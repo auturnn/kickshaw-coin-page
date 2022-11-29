@@ -4,10 +4,12 @@ import { blockApiConnector } from "../Api";
 import {
   BlockObject,
   getDate,
-  omissionString,
+  HashLength,
+  sliceHash,
   Time,
 } from "../object/BlockObject";
 import { slicingAddress } from "../object/TransactionObject";
+import { LoadingPage } from "./LoadingPage";
 import Paging from "./Pagination";
 
 const BlockPage = ({
@@ -22,20 +24,30 @@ const BlockPage = ({
   return (
     <tr
       key={hash}
-      className="border-b border-b-slate-600 text-lg text-center text-slate-300"
+      className="border-b border-b-slate-600 text-lg text-center text-slate-200"
     >
       <td>{height}</td>
-      <td>
-        <Link to={`/block/${hash}`}>{omissionString(hash)}</Link>
+      <td className=" text-amber-300">
+        <Link to={`/block/${hash}`}>{sliceHash(hash, HashLength.BLOCKS)}</Link>
       </td>
-      <td>
-        <Link to={`/block/${prevHash}`}>{omissionString(prevHash)}</Link>
+      {prevHash === "-" ? (
+        <td>
+          <Link to={`/block/${prevHash}`}>
+            {sliceHash(prevHash, HashLength.BLOCKS)}
+          </Link>
+        </td>
+      ) : (
+        <td className=" text-amber-300">
+          <Link to={`/block/${prevHash}`}>
+            {sliceHash(prevHash, HashLength.BLOCKS)}
+          </Link>
+        </td>
+      )}
+      <td className=" text-amber-300">
+        <Link to={`/address/${miner}`}>{slicingAddress(miner)}</Link>
       </td>
       <td>{nonce}</td>
       <td>{difficulty}</td>
-      <td>
-        <Link to={`/address/${miner}`}>{slicingAddress(miner)}</Link>
-      </td>
       <td>{getDate(timestamp, Time.DATE)}</td>
     </tr>
   );
@@ -61,28 +73,28 @@ const BlocksPage = (): JSX.Element => {
   }, []);
 
   if (blocks === undefined) {
-    return <div>Block List Loading</div>;
+    return LoadingPage("Blocks List Loading...");
   }
 
   return (
     <div>
       {loading ? (
-        <h1>Loading BlocksList...</h1>
+        LoadingPage("Page Loading...")
       ) : (
         <div key="blocksList" className="flex w-[85%] m-auto">
           <table className="w-full mx-auto mb-3 border-separate border-spacing-5 border-2 border-slate-700 rounded-md bg-[#1e2638] ">
-            <caption className="text-slate-200 text-2xl font-bold text-left mb-4">
-              The Lastest Block List
+            <caption className="text-slate-200 text-2xl font-bold text-left mb-10">
+              Lastest Block
             </caption>
             <thead className="w-full">
               <tr className="text-[#37BCF8] text-lg">
-                <th>Height</th>
+                <th className="w-1/12">Number</th>
                 <th>Hash</th>
                 <th>PrevHash</th>
+                <th>Miner</th>
                 <th>Nonce</th>
                 <th>Difficulty</th>
-                <th>Miner</th>
-                <th>Timestamp</th>
+                <th>Mined</th>
               </tr>
             </thead>
             <tbody>
