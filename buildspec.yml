@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+
+  build:
+    commands:
+      - echo Building the Typescript/React code...
+      - cd $CODEBUILD_SRC_DIR
+      -
+artifacts:
+  files:
+    - appspec.yml
+    - build
+    - scripts/**
+  discard-paths: yes
+
+cache:
+  paths:
+    - "/root/.gradle/caches/**/*"
