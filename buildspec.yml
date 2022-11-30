@@ -5,11 +5,12 @@ phases:
     runtime-versions:
       nodejs: 16
     command:
+      - cd $CODEBUILD_SRC_DIR
+      - echo "Start npm install..."
       - npm install
   build:
     commands:
-      - echo Building the Typescript/React code...
-      - cd $CODEBUILD_SRC_DIR
+      - echo "Building Typescript/React code..."
       - npm run build
 artifacts:
   files:
