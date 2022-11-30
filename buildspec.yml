@@ -9,11 +9,11 @@ phases:
     commands:
       - echo Building the Typescript/React code...
       - cd $CODEBUILD_SRC_DIR
-      -
+      - npm run build
 artifacts:
   files:
     - appspec.yml
-    - build
+    - build/**
     - scripts/**
   discard-paths: yes
 
