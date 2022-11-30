@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kickshaw-coin-page/static/css/main.63df25c7.css",
-    "main.js": "/kickshaw-coin-page/static/js/main.35e2987b.js",
+    "main.js": "/kickshaw-coin-page/static/js/main.31b73be5.js",
     "index.html": "/kickshaw-coin-page/index.html",
     "main.63df25c7.css.map": "/kickshaw-coin-page/static/css/main.63df25c7.css.map",
-    "main.35e2987b.js.map": "/kickshaw-coin-page/static/js/main.35e2987b.js.map"
+    "main.31b73be5.js.map": "/kickshaw-coin-page/static/js/main.31b73be5.js.map"
   },
   "entrypoints": [
     "static/css/main.63df25c7.css",
-    "static/js/main.35e2987b.js"
+    "static/js/main.31b73be5.js"
   ]
 }
