@@ -4,7 +4,8 @@ phases:
   install:
     runtime-versions:
       nodejs: 16
-
+    command:
+      - npm install
   build:
     commands:
       - echo Building the Typescript/React code...
