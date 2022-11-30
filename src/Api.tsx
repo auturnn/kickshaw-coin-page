@@ -1,7 +1,7 @@
 import { BlockChainStatusObject, BlockObject } from "./object/BlockObject";
 import { Mempool, TxObject, UTxOut } from "./object/TransactionObject";
 
-export const Host = "http://api.kickshaw-coin.com";
+export const Host = "https://api.kickshaw-coin.com";
 
 class ApiConnector {
   private host: string;

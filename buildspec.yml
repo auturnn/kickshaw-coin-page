@@ -7,10 +7,10 @@ phases:
     command:
       - cd $CODEBUILD_SRC_DIR
       - echo "Start npm install..."
-      - npm install
   build:
     commands:
       - echo "Building Typescript/React code..."
+      - npm install
       - npm run build
 artifacts:
   files:
