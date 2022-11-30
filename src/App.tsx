@@ -10,7 +10,7 @@ import { TransactionsPage } from "./page/TransactionsPage";
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <NavbarPage />
       <div className="p-5">
         <Routes>

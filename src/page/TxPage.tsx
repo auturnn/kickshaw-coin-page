@@ -14,13 +14,13 @@ const TxInsPage = (
   return (
     <div className="w-full inline-block border-b border-b-slate-700" key={txID}>
       <div className="w-full my-2">
-        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg bg-[#20283A]">
+        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg">
           Index
         </div>
         <div className="text-slate-200 text-base">{index}</div>
       </div>
       <div className="w-full my-4">
-        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg bg-[#20283A]">
+        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg">
           TxID
         </div>
         <div className="text-slate-200 text-base">
@@ -28,17 +28,21 @@ const TxInsPage = (
         </div>
       </div>
       <div className="w-full my-4">
-        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg bg-[#20283A]">
+        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg">
           Signature
         </div>
         {signature === "COINBASE" ? (
-          <div className=" text-green-500 text-base">{signature}</div>
+          <div className=" text-green-500 text-base">
+            {slicingAddress(signature)}
+          </div>
         ) : (
-          <div className="text-slate-200 text-base">{signature}</div>
+          <div className="text-slate-200 text-base">
+            {slicingAddress(signature)}
+          </div>
         )}
       </div>
       <div className="w-full my-4">
-        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg bg-[#20283A]">
+        <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-[#37BCF8] text-lg">
           Mined On
         </div>
         <div className="text-slate-200 text-base">
@@ -93,7 +97,7 @@ export const TxPage = (
           key={id}
         >
           <div className="w-full my-2">
-            <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-lg text-amber-300 bg-[#20283A]">
+            <div className="border-r-2 border-r-slate-400 float-left w-1/12 mr-3 font-semibold text-center text-lg text-amber-300">
               ID
             </div>
             <div className="text-slate-200 text-base">{id}</div>
