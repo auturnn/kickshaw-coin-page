@@ -30,3 +30,8 @@ export type Mempool = {
 export const slicingAddress = (address: string) => {
   return address.slice(0, 5);
 };
+
+export interface AddressInfo {
+  address: string;
+  balance: number;
+}

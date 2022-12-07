@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { UTxOut } from "../object/TransactionObject";
+import { AddressInfo, UTxOut } from "../object/TransactionObject";
 import Paging from "./Pagination";
 import { txApiConnector } from "../Api";
 import { LoadingPage } from "./LoadingPage";
@@ -45,7 +45,7 @@ const UTxOutListPage = ({ blockHash, txID, index, amount }: UTxOut) => {
 const AddressInfoPage = () => {
   const [loading, setLoading] = useState(true);
   const [utxout, setUTxOut] = useState<UTxOut[]>();
-  const [amount, setAmount] = useState<Number>(0);
+  const [info, setInfo] = useState<AddressInfo>();
   const { address } = useParams();
 
   const [page, setPage] = useState(1);
@@ -62,7 +62,7 @@ const AddressInfoPage = () => {
   const getAmount = async () => {
     if (address !== undefined) {
       const json = await txApiConnector.getTotalBalance(address);
-      setAmount(json);
+      setInfo(json);
     }
   };
 
@@ -75,7 +75,6 @@ const AddressInfoPage = () => {
   if (utxout === undefined) {
     return LoadingPage("Address Transactions Loading...");
   }
-
   return (
     <div className="w-[85%] mx-auto text-slate-200 text-lg">
       {loading ? (
@@ -86,18 +85,25 @@ const AddressInfoPage = () => {
             <h2 className="text-2xl text-slate-200 font-bold">
               Address Infomation
             </h2>
-            <div className="w-full flex flex-wrap my-10">
-              <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
-                Address
+
+            {info === undefined ? (
+              <div>
+                <h1>address error</h1>
               </div>
-              <div className="px-4">{address}</div>
-            </div>
+            ) : (
+              <div className="w-full flex flex-wrap my-10">
+                <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
+                  Address
+                </div>
+                <div className="px-4">{info?.address}</div>
+              </div>
+            )}
             <div className="w-full flex flex-wrap my-10">
               <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
                 Total
               </div>
               <div className="px-4">
-                <span>{`${amount}`} </span>
+                <span>{`${info?.balance}`} </span>
                 <span className=" text-amber-300">KSC</span>
               </div>
             </div>

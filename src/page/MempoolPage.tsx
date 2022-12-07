@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { apiConnector } from "../Api";
 import { Mempool } from "../object/TransactionObject";
 import { LoadingPage } from "./LoadingPage";
@@ -9,7 +8,6 @@ import { TxPage } from "./TxPage";
 const MempoolPage = () => {
   const [loading, setLoading] = useState(true);
   const [mempool, setMempool] = useState<Mempool>();
-
   const [page, setPage] = useState(1);
   const limit = 10;
   const offset = (page - 1) * limit;
@@ -18,7 +16,6 @@ const MempoolPage = () => {
     const res = await apiConnector.getMempool();
     setMempool(res);
   };
-
   useEffect(() => {
     getMempool();
     setLoading(false);
