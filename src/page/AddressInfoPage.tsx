@@ -81,33 +81,32 @@ const AddressInfoPage = () => {
         LoadingPage("Page Loading...")
       ) : (
         <div className="w-full">
-          <div className="w-full inline-block mb-5">
-            <h2 className="text-2xl text-slate-200 font-bold">
-              Address Infomation
-            </h2>
-
-            {info === undefined ? (
-              <div>
-                <h1>address error</h1>
-              </div>
-            ) : (
+          {info === undefined ? (
+            <div>
+              <h1>address error</h1>
+            </div>
+          ) : (
+            <div className="w-full inline-block mb-5">
+              <h2 className="text-2xl text-slate-200 font-bold">
+                Address Infomation
+              </h2>
               <div className="w-full flex flex-wrap my-10">
                 <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
                   Address
                 </div>
                 <div className="px-4">{info?.address}</div>
               </div>
-            )}
-            <div className="w-full flex flex-wrap my-10">
-              <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
-                Total
-              </div>
-              <div className="px-4">
-                <span>{`${info?.balance}`} </span>
-                <span className=" text-amber-300">KSC</span>
+              <div className="w-full flex flex-wrap my-10">
+                <div className="w-1/12 text-xl font-semibold px-2 text-center  text-[#37BCF8] border-r border-r-slate-700 ">
+                  Total
+                </div>
+                <div className="px-4">
+                  <span>{`${info?.balance}`} </span>
+                  <span className=" text-amber-300">KSC</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div>
             <h2 className="text-slate-200 text-2xl font-bold">
               This Address has '
