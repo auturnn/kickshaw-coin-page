@@ -1,5 +1,10 @@
 import { BlockChainStatusObject, BlockObject } from "./object/BlockObject";
-import { Mempool, TxObject, UTxOut } from "./object/TransactionObject";
+import {
+  AddressInfo,
+  Mempool,
+  TxObject,
+  UTxOut,
+} from "./object/TransactionObject";
 
 export const Host = "https://api.kickshaw-coin.com";
 
@@ -30,7 +35,7 @@ class ApiConnector {
     return await ApiConnector.fetchTojson(`${this.host}/${hash}`);
   };
 
-  getTotalBalance = async (hash: string): Promise<Number> => {
+  getTotalBalance = async (hash: string): Promise<AddressInfo> => {
     return await ApiConnector.fetchTojson(`${this.host}/${hash}?total=true`);
   };
 

@@ -1,6 +1,13 @@
-# Kickshaw Coin Page
+# kickshaw-page
 
-### [TypeScript-React를 이용한 간단한 Front-End 작성](https://pages.kickshaw-coin.com)
+### Site : [https://pages.kickshaw-coin.com](https://pages.kickshaw-coin.com)
 
-- [AWS EC2 + Golang으로 작성된 API 연동](https://api.kickshaw-coin.com)
-- AWS Route53 + ACM + gh-pages를 통한 Domain 구성
+### client : [kickshaw-client](https://github.com/auturnn/kickshaw-client)
+
+### server : [kickshaw-node](https://github.com/auturnn/kickshaw-node)
+
+---
+
+해당 프로젝트의 정보는 [kickshaw-project Notion](https://auturnn.notion.site/Kickshaw-Coin-Project-6c84570a93c041a895abdc205144fa59)을 클릭하여 확인해주세요.
+
+please check this site. [kickshaw-project Notion](https://auturnn.notion.site/Kickshaw-Coin-Project-6c84570a93c041a895abdc205144fa59)
